@@ -185,7 +185,7 @@ def merge_schema(left: Json, right: Json) -> Json:
         if required:
             merged["required"] = required
 
-    # Merge array schemas
+    # Merge array schema
     if left.get("type") in ("array", ["array"]) or right.get("type") in ("array", ["array"]):
         left_items = left.get("items")
         right_items = right.get("items")
