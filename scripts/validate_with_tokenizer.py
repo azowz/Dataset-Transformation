@@ -107,7 +107,7 @@ def validate_record(idx: int, record: Json, tokenizer: AutoTokenizer) -> tuple[b
         return False, "missing messages"
     try:
         prepared = prepare_messages(record["messages"])
-        # apply_chat_template should not raise
+        # apply_chat_template should not rais
         tokenizer.apply_chat_template(prepared, tokenize=False)
     except Exception as exc:  # broad on purpose to surface tokenizer issues
         return False, f"chat template failure: {exc}"
