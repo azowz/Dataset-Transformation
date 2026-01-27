@@ -1,76 +1,87 @@
 # Dataset Transformation
-Convert an Arabic function-calling dataset into Mobile Actions / FunctionGemma chat format.
+Production-ready Phase 1 pipeline that converts the Hugging Face dataset `HeshamHaroon/Arabic_Function_Calling` into Mobile Actions / FunctionGemma chat format.
 
 ## Purpose
-- Standardize Arabic user queries and tool calls for training FunctionGemma-style models.
-- Produce deterministic JSONL suitable for tokenizer `apply_chat_template`.
-- Auto-generate a function schema registry from observed `function_name` and `arguments`.
+- Convert Arabic function-calling data into strict chat JSONL compatible with `tokenizer.apply_chat_template`.
+- Preserve Arabic text and tool arguments verbatim; never hallucinate missing fields.
+- Auto-build a JSON Schema registry for every unique `function_name`.
+- Validate the final JSONL so it is ready for Phase 2 fine-tuning.
+
+## Dataset Source
+- Hugging Face: `HeshamHaroon/Arabic_Function_Calling` (train split by default).
+- Columns are detected automatically; currently exposed: `query_ar`, `query_en`, `function_name`, `arguments`, `dialect`, `domain`, `requires_function`.
+- A raw snapshot is written to `raw/dataset.jsonl` for reproducibility.
 
 ## Repository Layout
-- `scripts/convert_dataset.py` — load HF dataset, write raw copy, convert to chat format, build `schemas/registry.json`.
-- `scripts/validate_with_tokenizer.py` — run `tokenizer.apply_chat_template` from `google/function-gemma-2b` over every record.
+- `scripts/convert_dataset.py` — load HF dataset, log column/sample snapshot, write raw copy, convert to chat format, and generate `schemas/registry.json`.
+- `scripts/validate_with_tokenizer.py` — replay each record through `AutoTokenizer.apply_chat_template` (defaults to `google/function-gemma-2b`).
 - `raw/` — raw dataset snapshot (`dataset.jsonl`).
 - `output/` — converted dataset (`dataset_functiongemma.jsonl`).
-- `schemas/` — auto-generated function registry.
+- `schemas/` — function registry keyed by function name.
 
-## Dataset Format (output)
-Case 1 — Tool Required
+## Output Format
+Case 1 — Tool call required
 ```json
-{"messages": [
-  {"role": "user", "content": "<arabic query>"},
-  {"role": "assistant", "tool_calls": [
-    {"name": "<function_name>", "arguments": { "key": "value" }}
-  ]}
-]}
+{
+  "messages": [
+    { "role": "user", "content": "<arabic query>" },
+    { "role": "assistant", "tool_calls": [
+      { "name": "<function_name>", "arguments": { ... } }
+    ]}
+  ]
+}
 ```
-Case 2 — No Tool Required
+Case 2 — No tool call
 ```json
-{"messages": [
-  {"role": "user", "content": "<arabic query>"},
-  {"role": "assistant", "content": "<arabic answer>"}
-]}
-```
-
-### Example (synthetic)
-```json
-{"messages":[
-  {"role":"user","content":"ما حالة الطقس غدًا في الرياض؟"},
-  {"role":"assistant","tool_calls":[{"name":"get_weather","arguments":{"city":"الرياض","day":"غدًا"}}]}
-]}
-{"messages":[
-  {"role":"user","content":"ما هي فوائد شرب الماء؟"},
-  {"role":"assistant","content":"يساعد شرب الماء على الترطيب وتحسين وظائف الجسم."}
-]}
+{
+  "messages": [
+    { "role": "user", "content": "<arabic query>" },
+    { "role": "assistant", "content": "<arabic answer>" }
+  ]
+}
 ```
 
-## Prerequisites
-- Python 3.10+
-- Packages: `pip install datasets transformers tqdm`
-- Access to `google/function-gemma-2b` (set `HUGGINGFACE_TOKEN` if the model is gated).
+### Real example (row 0 from the train split)
+```json
+{
+  "messages": [
+    { "role": "user", "content": "أريد إنشاء تذكير بعنوان اجتماع عمل في الساعة الثالثة ظهراً يوم ١٥ أكتوبر" },
+    { "role": "assistant", "tool_calls": [
+      { "name": "set_reminder", "arguments": { "datetime": "2023-10-15T15:00:00", "title": "اجتماع عمل" } }
+    ]}
+  ]
+}
+```
 
-## Run Conversion
+## Run the conversion
 ```bash
 python scripts/convert_dataset.py \
-  --dataset <hf_dataset_name_or_path> \
+  --dataset HeshamHaroon/Arabic_Function_Calling \
   --split train \
   --raw-path raw/dataset.jsonl \
   --output-path output/dataset_functiongemma.jsonl \
   --registry-path schemas/registry.json
 ```
-Optional: `--max-rows 500` to dry-run on a subset.
+Useful options:
+- `--max-rows` to cap processed rows.
+- `--query-field` / `--answer-field` to override auto-detection.
 
-## Run Validation
+Notes:
+- The script logs detected columns and the first three rows for inspection.
+- Rows without a user query or without either `function_name` or `answer` are skipped; totals are reported at the end.
+
+## Run the validation
+- Requires access to the tokenizer for `google/function-gemma-2b` (model is gated; set `HUGGINGFACE_TOKEN` or run `huggingface-cli login` first).
 ```bash
 python scripts/validate_with_tokenizer.py \
   --dataset-path output/dataset_functiongemma.jsonl \
   --model google/function-gemma-2b
 ```
-- Fails fast if any record cannot be rendered by `apply_chat_template`.
-- Use `--fail-fast` to stop on first issue or `--max-records` for spot checks.
+Flags: `--fail-fast` to stop on first failure, `--max-records` for spot checks.
 
-## Team Contribution Rules
+## Team contribution rules
 - Keep changes small and reversible; prefer additive diffs.
 - Do not overwrite raw or output files generated by others without coordination.
-- Ensure conversion stays deterministic (no randomized shuffling).
-- Add tests or validation runs before proposing changes; share command outputs.
-- Document new parameters or behaviors in this README.
+- Maintain deterministic conversion (no shuffling or nondeterministic ordering).
+- Add validation runs or tests with command outputs when changing logic.
+- Document any new parameters or behaviors in this README.

@@ -1,0 +1,1092 @@
+{
+  "book_doctor_appointment": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "date": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "day": {
+          "type": "string"
+        },
+        "doctor_name": {
+          "type": "string"
+        },
+        "hospital": {
+          "type": "string"
+        },
+        "hospital_name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "specialty": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "time_frame": {
+          "type": "string"
+        },
+        "timeframe": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city",
+        "specialty"
+      ]
+    }
+  },
+  "book_government_appointment": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "id_number": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "ministry": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "preferred_date": {
+          "type": "string"
+        },
+        "service_type": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city"
+      ]
+    }
+  },
+  "calculate_customs": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "destination_city": {
+          "type": "string"
+        },
+        "item_category": {
+          "type": "string"
+        },
+        "item_type": {
+          "type": "string"
+        },
+        "order_value": {
+          "type": "integer"
+        },
+        "origin_country": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "integer",
+            "null",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "category",
+        "country",
+        "value"
+      ]
+    }
+  },
+  "calculate_end_of_service": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "salary": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "termination_type": {
+          "type": "string"
+        },
+        "years": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "salary",
+        "termination_type",
+        "years"
+      ]
+    }
+  },
+  "calculate_loan": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "country": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "duration_years": {
+          "type": "integer"
+        },
+        "loan_amount": {
+          "type": "integer"
+        },
+        "loan_duration_years": {
+          "type": "integer"
+        },
+        "months": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "principal": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "rate": {
+          "type": [
+            "integer",
+            "null",
+            "number",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "months",
+        "principal"
+      ]
+    }
+  },
+  "calculate_math": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "equation": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string"
+        },
+        "first_number": {
+          "type": "integer"
+        },
+        "from_currency": {
+          "type": "string"
+        },
+        "numbers": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "operation": {
+          "type": "string"
+        },
+        "second_number": {
+          "type": "integer"
+        },
+        "to_currency": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "expression"
+      ]
+    }
+  },
+  "calculate_zakat": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "assets_type": {
+          "type": "string"
+        },
+        "currency": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amount"
+      ]
+    }
+  },
+  "check_insurance_coverage": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "doctor_specialty": {
+          "type": "string"
+        },
+        "hospital": {
+          "type": "string"
+        },
+        "insurance_id": {
+          "type": "string"
+        },
+        "insurance_number": {
+          "type": "string"
+        },
+        "procedure": {
+          "type": "string"
+        },
+        "specialty": {
+          "type": "string"
+        },
+        "treatment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "insurance_number",
+        "procedure"
+      ]
+    }
+  },
+  "check_iqama_status": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "id_number": {
+          "type": "string"
+        },
+        "iqama_number": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "person_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "iqama_number"
+      ]
+    }
+  },
+  "check_traffic_violations": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "id_number": {
+          "type": "string"
+        },
+        "iqama_number": {
+          "type": "string"
+        },
+        "license_plate": {
+          "type": "string"
+        },
+        "national_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id_number"
+      ]
+    }
+  },
+  "check_visa_status": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "application_number": {
+          "type": "string"
+        },
+        "id_number": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "passport_number": {
+          "type": "string"
+        },
+        "visa_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "visa_number"
+      ]
+    }
+  },
+  "compare_prices": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": [
+            "array",
+            "null",
+            "string"
+          ],
+          "items": {
+            "type": [
+              "string"
+            ]
+          }
+        },
+        "country1": {
+          "type": "string"
+        },
+        "country2": {
+          "type": "string"
+        },
+        "item": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "product_category": {
+          "type": "string"
+        },
+        "product_name": {
+          "type": "string"
+        },
+        "site1": {
+          "type": "string"
+        },
+        "site2": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_name"
+      ]
+    }
+  },
+  "convert_currency": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": [
+            "integer",
+            "null",
+            "string"
+          ]
+        },
+        "from_currency": {
+          "type": "string"
+        },
+        "to_currency": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "from_currency",
+        "to_currency"
+      ]
+    }
+  },
+  "currency_conversion": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "from_currency": {
+          "type": "string"
+        },
+        "to_currency": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "from_currency",
+        "to_currency"
+      ]
+    }
+  },
+  "get_air_quality": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city"
+      ]
+    }
+  },
+  "get_birthday": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  "get_current_time": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city"
+      ]
+    }
+  },
+  "get_gold_price": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "karat": {
+          "type": [
+            "array",
+            "integer",
+            "string"
+          ],
+          "items": {
+            "type": [
+              "integer"
+            ]
+          }
+        },
+        "location": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "country"
+      ]
+    }
+  },
+  "get_hadith": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "source": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  "get_prayer_times": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "date": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "city"
+      ]
+    }
+  },
+  "get_qibla_direction": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city"
+      ]
+    }
+  },
+  "get_time": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city"
+      ]
+    }
+  },
+  "get_weather": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "day": {
+          "type": "string"
+        },
+        "days": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city"
+      ]
+    }
+  },
+  "order_food": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "food_type": {
+          "type": "string"
+        },
+        "items": {
+          "type": [
+            "array",
+            "string"
+          ],
+          "items": {
+            "type": [
+              "string"
+            ]
+          }
+        },
+        "location": {
+          "type": "string"
+        },
+        "restaurant": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "items",
+        "restaurant"
+      ]
+    }
+  },
+  "search_flights": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "arrival_city": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "date_range": {
+          "type": "string"
+        },
+        "day": {
+          "type": "string"
+        },
+        "departure_city": {
+          "type": "string"
+        },
+        "departure_date": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "departure_day": {
+          "type": "string"
+        },
+        "departure_time": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "destination_city": {
+          "type": "string"
+        },
+        "from_city": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "passengers": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "return_date": {
+          "type": "null"
+        },
+        "to_city": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "date",
+        "destination",
+        "origin"
+      ]
+    }
+  },
+  "search_hotels": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "check_in": {
+          "type": "string"
+        },
+        "check_in_date": {
+          "type": "string"
+        },
+        "check_out": {
+          "type": "string"
+        },
+        "check_out_date": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "date_range": {
+          "type": "string"
+        },
+        "dates": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "duration": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "guests": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "location": {
+          "type": "string"
+        },
+        "month": {
+          "type": "string"
+        },
+        "nights": {
+          "type": "integer"
+        },
+        "start_date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "check_in",
+        "city"
+      ]
+    }
+  },
+  "search_medications": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "medication_name": {
+          "type": "string"
+        },
+        "medication_type": {
+          "type": "string"
+        },
+        "symptom": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "medication_name"
+      ]
+    }
+  },
+  "search_quran": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "search_type": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  "search_umrah_packages": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "num_persons": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        }
+      },
+      "required": [
+        "city",
+        "num_persons"
+      ]
+    }
+  },
+  "set_reminder": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "datetime": {
+          "type": "string"
+        },
+        "day": {
+          "type": "string"
+        },
+        "person": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "datetime",
+        "title"
+      ]
+    }
+  },
+  "track_shipment": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "destination_city": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "order_id": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "shipment_number": {
+          "type": "string"
+        },
+        "shipment_source": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "tracking_number": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tracking_number"
+      ]
+    }
+  },
+  "transfer_money": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "bank": {
+          "type": "string"
+        },
+        "bank_name": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "currency_from": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        },
+        "destination_bank": {
+          "type": "string"
+        },
+        "destination_city": {
+          "type": "string"
+        },
+        "from_bank": {
+          "type": "string"
+        },
+        "from_country": {
+          "type": "string"
+        },
+        "iban": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "recipient": {
+          "type": "string"
+        },
+        "recipient_bank": {
+          "type": "string"
+        },
+        "recipient_name": {
+          "type": "string"
+        },
+        "recipient_relationship": {
+          "type": "string"
+        },
+        "source_city": {
+          "type": "string"
+        },
+        "to_bank": {
+          "type": "string"
+        },
+        "to_country": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount"
+      ]
+    }
+  },
+  "translate_text": {
+    "description": "Auto-generated schema from dataset samples.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "source_language": {
+          "type": "string"
+        },
+        "source_text": {
+          "type": "string"
+        },
+        "target_language": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "to_language": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ]
+    }
+  }
+}

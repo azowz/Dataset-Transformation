@@ -53,10 +53,22 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional cap on processed rows for debugging.",
     )
+    parser.add_argument(
+        "--query-field",
+        default=None,
+        help="Dataset column to read the Arabic user message from (auto-detected if omitted).",
+    )
+    parser.add_argument(
+        "--answer-field",
+        default=None,
+        help="Dataset column to read assistant free-form answers from (auto-detected if omitted).",
+    )
     return parser.parse_args()
 
 
 def to_jsonl(records: Iterable[Json], path: Path) -> None:
+    """Write an iterable of dicts to JSONL using UTF-8 without ASCII escaping."""
+
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
         for record in records:
@@ -74,7 +86,13 @@ def sort_object(value: Any) -> Any:
 
 
 def normalize_arguments(raw_args: Any) -> Optional[Json]:
-    """Return arguments as a dictionary or None when unusable."""
+    """Return arguments as a dictionary or None when unusable.
+
+    The goal is to preserve provided arguments verbatim without inventing
+    values. When the source is empty/None we keep an empty object; otherwise
+    only accept JSON objects, skipping anything that cannot be parsed safely.
+    """
+
     if raw_args is None:
         return {}
     if isinstance(raw_args, dict):
@@ -191,6 +209,7 @@ def merge_schema(left: Json, right: Json) -> Json:
 
 def clean_schema(schema: Json) -> Json:
     """Sort properties deterministically and collapse single-item type lists."""
+
     cleaned = dict(schema)
     schema_type = cleaned.get("type")
     if isinstance(schema_type, list) and len(schema_type) == 1:
@@ -208,26 +227,35 @@ def clean_schema(schema: Json) -> Json:
     return cleaned
 
 
-def build_function_registry(dataset: Dataset) -> Tuple[List[Json], Json]:
-    """Return converted messages and registry."""
+def build_function_registry(dataset: Dataset, query_field: str, answer_field: Optional[str]) -> Tuple[List[Json], Json]:
+    """Return converted messages and registry keyed by function name."""
+
     converted_rows: List[Json] = []
     registry: Dict[str, Json] = {}
+    warn_limit = 25
+    skipped_missing_query: List[int] = []
+    skipped_missing_payload: List[int] = []
+    skipped_bad_args: List[int] = []
 
     for idx, row in enumerate(dataset):
-        query = row.get("query")
+        query = row.get(query_field)
         function_name = row.get("function_name")
-        answer = row.get("answer")
+        answer = row.get(answer_field) if answer_field else None
         raw_args = row.get("arguments")
 
         if not isinstance(query, str) or not query.strip():
-            Logger.warning("Skipping row %s: missing/empty query", idx)
+            if len(skipped_missing_query) < warn_limit:
+                Logger.warning("Skipping row %s: missing/empty query", idx)
+            skipped_missing_query.append(idx)
             continue
 
         # Tool case
         if isinstance(function_name, str) and function_name.strip():
             arguments = normalize_arguments(raw_args)
             if arguments is None:
-                Logger.warning("Skipping row %s: unusable arguments", idx)
+                if len(skipped_bad_args) < warn_limit:
+                    Logger.warning("Skipping row %s: unusable arguments", idx)
+                skipped_bad_args.append(idx)
                 continue
             arguments = sort_object(arguments)
 
@@ -257,20 +285,58 @@ def build_function_registry(dataset: Dataset) -> Tuple[List[Json], Json]:
             ]
             converted_rows.append({"messages": messages})
         else:
-            Logger.warning("Skipping row %s: neither function call nor answer found", idx)
+            if len(skipped_missing_payload) < warn_limit:
+                Logger.warning("Skipping row %s: neither function call nor answer found", idx)
+            skipped_missing_payload.append(idx)
 
     cleaned_registry = {
-        "functions": [
-            {
-                "name": name,
-                "description": "Auto-generated schema from dataset samples.",
-                "parameters": clean_schema(schema),
-            }
-            for name, schema in sorted(registry.items(), key=lambda kv: kv[0])
-        ]
+        name: {
+            "description": "Auto-generated schema from dataset samples.",
+            "parameters": clean_schema(schema),
+        }
+        for name, schema in sorted(registry.items(), key=lambda kv: kv[0])
     }
 
+    if skipped_missing_query or skipped_bad_args or skipped_missing_payload:
+        Logger.info(
+            "Skip summary | missing query: %d | unusable arguments: %d | missing function/answer: %d",
+            len(skipped_missing_query),
+            len(skipped_bad_args),
+            len(skipped_missing_payload),
+        )
+
     return converted_rows, cleaned_registry
+
+
+def log_dataset_snapshot(dataset: Dataset, sample_size: int = 3) -> None:
+    """Log column names and a handful of sample rows for quick inspection."""
+
+    Logger.info("Dataset columns: %s", ", ".join(dataset.column_names))
+    sample_count = min(sample_size, len(dataset))
+    if sample_count == 0:
+        Logger.warning("Dataset is empty; no samples to display")
+        return
+    sample_rows = dataset.select(range(sample_count))
+    Logger.info("Sample rows (first %s):", sample_count)
+    for idx, row in enumerate(sample_rows):
+        Logger.info("Row %s: %s", idx, json.dumps(row, ensure_ascii=False))
+
+
+def detect_field(dataset: Dataset, override: Optional[str], candidates: List[str], *, required: bool) -> Optional[str]:
+    """Choose a column name using override or the first matching candidate."""
+
+    if override:
+        if override not in dataset.column_names:
+            raise ValueError(f"Requested field '{override}' not found in dataset columns: {dataset.column_names}")
+        return override
+
+    for name in candidates:
+        if name in dataset.column_names:
+            return name
+
+    if required:
+        raise ValueError(f"No field found among {candidates}")
+    return None
 
 
 def main() -> None:
@@ -281,6 +347,22 @@ def main() -> None:
         dataset = dataset.select(range(min(args.max_rows, len(dataset))))
         Logger.info("Capped dataset to %s rows", len(dataset))
 
+    log_dataset_snapshot(dataset)
+
+    query_field = detect_field(
+        dataset,
+        args.query_field,
+        ["query", "query_ar", "prompt", "user", "instruction", "question", "input"],
+        required=True,
+    )
+    answer_field = detect_field(
+        dataset,
+        args.answer_field,
+        ["answer", "response", "output", "text", "reply", "answer_ar"],
+        required=False,
+    )
+    Logger.info("Using query field: %s | answer field: %s", query_field, answer_field or "none")
+
     raw_path = Path(args.raw_path)
     output_path = Path(args.output_path)
     registry_path = Path(args.registry_path)
@@ -289,7 +371,7 @@ def main() -> None:
     dataset.to_json(raw_path.as_posix(), orient="records", force_ascii=False)
 
     Logger.info("Converting dataset")
-    converted_rows, registry = build_function_registry(dataset)
+    converted_rows, registry = build_function_registry(dataset, query_field, answer_field)
 
     Logger.info("Writing converted dataset to %s", output_path)
     to_jsonl(converted_rows, output_path)
@@ -298,10 +380,12 @@ def main() -> None:
     registry_path.parent.mkdir(parents=True, exist_ok=True)
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    skipped = len(dataset) - len(converted_rows)
     Logger.info(
-        "Done. Converted rows: %d | Functions discovered: %d",
+        "Done. Converted rows: %d | Skipped rows: %d | Functions discovered: %d",
         len(converted_rows),
-        len(registry["functions"]),
+        skipped,
+        len(registry),
     )
 
 
