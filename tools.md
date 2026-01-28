@@ -1,0 +1,36 @@
+﻿# Tools Documentation
+Concise reference for all tools appearing in `output/dataset_functiongemma.jsonl`.
+
+- `book_doctor_appointment` — Schedule a doctor visit in a city. Inputs: `city`, `specialty`, optional `date`, `time`, `hospital`, `doctor_name`. Example: `{ "city": "الرياض", "specialty": "قلب", "date": "2024-03-12" }`.
+- `book_government_appointment` — Book a ministry/agency visit. Inputs: `city`, `service_type`, `id_number`, optional `department`, `date`. Example: `{ "city": "جدة", "service_type": "تجديد جواز", "id_number": "1234567890" }`.
+- `calculate_customs` — Estimate customs duties for an import. Inputs: `country`, `category`, `value`, optional `currency`, `origin_country`. Example: `{ "country": "السعودية", "category": "إلكترونيات", "value": 1500, "currency": "SAR" }`.
+- `calculate_end_of_service` — Compute end-of-service benefit. Inputs: `salary`, `years`, `termination_type`. Example: `{ "salary": 7000, "years": 5, "termination_type": "استقالة" }`.
+- `calculate_loan` — Calculate installments given principal, duration, rate. Inputs: `principal`, `months`, `rate`, optional `currency`. Example: `{ "principal": 50000, "months": 24, "rate": 4.5 }`.
+- `calculate_math` — Evaluate an expression or simple operation. Inputs: `expression`, optional `operation`, `numbers`. Example: `{ "expression": "(5+3)*2" }`.
+- `calculate_zakat` — Compute zakat on assets. Inputs: `amount`, `type`, optional `currency`, `weight`. Example: `{ "amount": 25000, "type": "نقود", "currency": "SAR" }`.
+- `check_insurance_coverage` — Verify if a procedure is covered by insurance. Inputs: `insurance_number`, `procedure`, optional `hospital`, `city`. Example: `{ "insurance_number": "INS-7788", "procedure": "تحاليل دم" }`.
+- `check_iqama_status` — Check residency (iqama) status. Inputs: `iqama_number`, optional `id_number`. Example: `{ "iqama_number": "2456678890" }`.
+- `check_traffic_violations` — Fetch outstanding traffic fines. Inputs: `id_number`, optional `license_plate`. Example: `{ "id_number": "1029384756" }`.
+- `check_visa_status` — Check status of a visa/application. Inputs: `visa_number`, optional `passport_number`. Example: `{ "visa_number": "VISA12345" }`.
+- `compare_prices` — Compare product prices across countries. Inputs: `product_name`, optional `country` (one or list). Example: `{ "product_name": "iPhone 15", "country": ["السعودية", "الإمارات"] }`.
+- `convert_currency` — Convert an amount between currencies. Inputs: `amount`, `from_currency`, `to_currency`. Example: `{ "amount": 100, "from_currency": "USD", "to_currency": "SAR" }`.
+- `currency_conversion` — Same as `convert_currency` (legacy name). Inputs: `amount`, `from_currency`, `to_currency`. Example: `{ "amount": 50, "from_currency": "EUR", "to_currency": "USD" }`.
+- `get_air_quality` — Air quality index for a city/date. Inputs: `city`, optional `date`. Example: `{ "city": "الدمام" }`.
+- `get_birthday` — Return stored birthday for a person. Inputs: `name`. Example: `{ "name": "أحمد" }`.
+- `get_current_time` — Current local time in a city. Inputs: `city`. Example: `{ "city": "دبي" }`.
+- `get_gold_price` — Gold price by country/karat. Inputs: `country`, optional `karat`, `city`. Example: `{ "country": "مصر", "karat": 21 }`.
+- `get_hadith` — Search hadith by keywords/source. Inputs: `query`, optional `source`. Example: `{ "query": "الجار", "source": "صحيح البخاري" }`.
+- `get_prayer_times` — Prayer times for a city/date. Inputs: `city`, optional `date`. Example: `{ "city": "مكة", "date": "2024-01-01" }`.
+- `get_qibla_direction` — Qibla direction for a city. Inputs: `city`. Example: `{ "city": "الرياض" }`.
+- `get_time` — Alias for current time lookup. Inputs: `city`. Example: `{ "city": "القاهرة" }`.
+- `get_weather` — Weather/forecast for a city. Inputs: `city`, optional `days`, `date`. Example: `{ "city": "شرم الشيخ", "days": 0 }`.
+- `order_food` — Place a restaurant order. Inputs: `restaurant`, `items`, optional `location`. Example: `{ "restaurant": "Kudu", "items": ["برجر", "بطاطس"] }`.
+- `search_flights` — Flight search between origin/destination on a date. Inputs: `origin`, `destination`, `date`, optional `passengers`. Example: `{ "origin": "الرياض", "destination": "دبي", "date": "2024-02-10" }`.
+- `search_hotels` — Hotel search for specified dates. Inputs: `city`, `check_in`, `check_out`, optional `guests`. Example: `{ "city": "جدة", "check_in": "2024-03-01", "check_out": "2024-03-05" }`.
+- `search_medications` — Find medication availability. Inputs: `medication_name`, optional `city`. Example: `{ "medication_name": "باراسيتامول", "city": "الكويت" }`.
+- `search_quran` — Search Quran text. Inputs: `query`, optional `search_type`. Example: `{ "query": "الرحمن" }`.
+- `search_umrah_packages` — Find Umrah packages from a city. Inputs: `city`, `num_persons`. Example: `{ "city": "الرياض", "num_persons": 4 }`.
+- `set_reminder` — Create a reminder. Inputs: `title`, `datetime`. Example: `{ "title": "اجتماع عمل", "datetime": "2024-04-10T15:00:00" }`.
+- `track_shipment` — Track a package by number. Inputs: `tracking_number`, optional `destination_city`. Example: `{ "tracking_number": "SF123456789SA" }`.
+- `transfer_money` — Transfer money to an IBAN. Inputs: `amount`, `currency`, `recipient_name`, `iban`. Example: `{ "amount": 3000, "currency": "LBP", "recipient_name": "عمار إبراهيم", "iban": "LB987654321" }`.
+- `translate_text` — Translate text to a target language. Inputs: `text`, `target_language`. Example: `{ "text": "كيف حالك؟", "target_language": "en" }`.

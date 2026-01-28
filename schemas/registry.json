@@ -1,44 +1,55 @@
 {
   "book_doctor_appointment": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Schedule an in-person doctor visit for a specific specialty in a given city.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "City where the appointment is needed."
+        },
+        "specialty": {
+          "type": "string",
+          "description": "Medical specialty to book (e.g., cardiology)."
         },
         "date": {
           "type": [
-            "null",
-            "string"
-          ]
-        },
-        "day": {
-          "type": "string"
-        },
-        "doctor_name": {
-          "type": "string"
-        },
-        "hospital": {
-          "type": "string"
-        },
-        "hospital_name": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
-        },
-        "specialty": {
-          "type": "string"
+            "string",
+            "null"
+          ],
+          "description": "Preferred appointment date."
         },
         "time": {
-          "type": "string"
+          "type": "string",
+          "description": "Preferred appointment time."
+        },
+        "day": {
+          "type": "string",
+          "description": "Day of week when no exact date is provided."
         },
         "time_frame": {
-          "type": "string"
+          "type": "string",
+          "description": "Broad time window such as morning/evening."
         },
         "timeframe": {
-          "type": "string"
+          "type": "string",
+          "description": "Alias for time_frame."
+        },
+        "location": {
+          "type": "string",
+          "description": "Neighborhood or area inside the city."
+        },
+        "hospital": {
+          "type": "string",
+          "description": "Hospital or clinic to visit."
+        },
+        "hospital_name": {
+          "type": "string",
+          "description": "Alias for hospital."
+        },
+        "doctor_name": {
+          "type": "string",
+          "description": "Specific doctor to see."
         }
       },
       "required": [
@@ -48,205 +59,250 @@
     }
   },
   "book_government_appointment": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Book an appointment to complete a government or ministry service in a given city.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
-        },
-        "date": {
-          "type": "string"
-        },
-        "department": {
-          "type": "string"
-        },
-        "id_number": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
-        },
-        "ministry": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "preferred_date": {
-          "type": "string"
+          "type": "string",
+          "description": "City where the appointment should be scheduled."
         },
         "service_type": {
-          "type": "string"
+          "type": "string",
+          "description": "Government service to book (e.g., passport renewal)."
+        },
+        "id_number": {
+          "type": "string",
+          "description": "National ID / Iqama number of the applicant."
+        },
+        "department": {
+          "type": "string",
+          "description": "Specific department if applicable."
+        },
+        "ministry": {
+          "type": "string",
+          "description": "Ministry or agency name."
+        },
+        "date": {
+          "type": "string",
+          "description": "Requested appointment date."
+        },
+        "preferred_date": {
+          "type": "string",
+          "description": "Alternate preferred date."
         },
         "time": {
-          "type": "string"
+          "type": "string",
+          "description": "Preferred time."
+        },
+        "location": {
+          "type": "string",
+          "description": "Branch or office location."
+        },
+        "name": {
+          "type": "string",
+          "description": "Applicant full name."
         }
       },
       "required": [
-        "city"
+        "city",
+        "service_type",
+        "id_number"
       ]
     }
   },
   "calculate_customs": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Estimate customs or import duties for an item entering a country.",
     "parameters": {
       "type": "object",
       "properties": {
-        "category": {
-          "type": "string"
-        },
         "country": {
-          "type": "string"
-        },
-        "currency": {
-          "type": "string"
-        },
-        "destination": {
-          "type": "string"
-        },
-        "destination_city": {
-          "type": "string"
-        },
-        "item_category": {
-          "type": "string"
-        },
-        "item_type": {
-          "type": "string"
-        },
-        "order_value": {
-          "type": "integer"
-        },
-        "origin_country": {
-          "type": "string"
+          "type": "string",
+          "description": "Destination country for the shipment."
         },
         "value": {
           "type": [
-            "integer",
-            "null",
+            "number",
             "string"
-          ]
+          ],
+          "description": "Declared item value."
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency of the declared value."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the item (e.g., electronics)."
+        },
+        "origin_country": {
+          "type": "string",
+          "description": "Country of origin."
+        },
+        "destination": {
+          "type": "string",
+          "description": "Destination city or port."
+        },
+        "destination_city": {
+          "type": "string",
+          "description": "City where the item will be received."
+        },
+        "item_category": {
+          "type": "string",
+          "description": "More specific item category if provided."
+        },
+        "item_type": {
+          "type": "string",
+          "description": "Item type or description."
+        },
+        "order_value": {
+          "type": "integer",
+          "description": "Order value when provided separately."
         }
       },
       "required": [
-        "category",
         "country",
+        "category",
         "value"
       ]
     }
   },
   "calculate_end_of_service": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Calculate end-of-service benefits based on salary, tenure, and termination type.",
     "parameters": {
       "type": "object",
       "properties": {
         "salary": {
           "type": [
-            "integer",
+            "number",
             "string"
-          ]
-        },
-        "termination_type": {
-          "type": "string"
+          ],
+          "description": "Monthly salary used for calculation."
         },
         "years": {
           "type": [
-            "integer",
+            "number",
             "string"
-          ]
+          ],
+          "description": "Years of service."
+        },
+        "termination_type": {
+          "type": "string",
+          "description": "Reason for termination (e.g., resignation, termination)."
         }
       },
       "required": [
         "salary",
-        "termination_type",
-        "years"
+        "years",
+        "termination_type"
       ]
     }
   },
   "calculate_loan": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Calculate loan installments or repayment cost using principal, term, and rate.",
     "parameters": {
       "type": "object",
       "properties": {
-        "amount": {
-          "type": "integer"
-        },
-        "country": {
-          "type": "string"
-        },
-        "currency": {
-          "type": "string"
-        },
-        "duration_years": {
-          "type": "integer"
-        },
-        "loan_amount": {
-          "type": "integer"
-        },
-        "loan_duration_years": {
-          "type": "integer"
+        "principal": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "Principal amount of the loan."
         },
         "months": {
           "type": [
             "integer",
             "string"
-          ]
-        },
-        "principal": {
-          "type": [
-            "integer",
-            "string"
-          ]
+          ],
+          "description": "Loan duration in months."
         },
         "rate": {
           "type": [
-            "integer",
-            "null",
+            "number",
+            "string",
+            "null"
+          ],
+          "description": "Interest rate percentage."
+        },
+        "amount": {
+          "type": [
             "number",
             "string"
-          ]
+          ],
+          "description": "Alias for principal when provided as amount."
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code for the loan."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country whose lending rules apply."
+        },
+        "duration_years": {
+          "type": "integer",
+          "description": "Loan duration in years if supplied."
+        },
+        "loan_amount": {
+          "type": "integer",
+          "description": "Alias for principal in integer form."
+        },
+        "loan_duration_years": {
+          "type": "integer",
+          "description": "Alias for duration in years."
         }
       },
       "required": [
+        "principal",
         "months",
-        "principal"
+        "rate"
       ]
     }
   },
   "calculate_math": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Evaluate a mathematical expression or perform a basic arithmetic operation.",
     "parameters": {
       "type": "object",
       "properties": {
-        "amount": {
-          "type": "integer"
-        },
-        "equation": {
-          "type": "string"
-        },
         "expression": {
-          "type": "string"
+          "type": "string",
+          "description": "Math expression to evaluate."
         },
-        "first_number": {
-          "type": "integer"
-        },
-        "from_currency": {
-          "type": "string"
+        "operation": {
+          "type": "string",
+          "description": "Named operation such as add, subtract, multiply."
         },
         "numbers": {
           "type": "array",
           "items": {
-            "type": "integer"
-          }
+            "type": "number"
+          },
+          "description": "List of numbers for the operation."
         },
-        "operation": {
-          "type": "string"
+        "first_number": {
+          "type": "integer",
+          "description": "First operand when provided separately."
         },
         "second_number": {
-          "type": "integer"
+          "type": "integer",
+          "description": "Second operand when provided separately."
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Single numeric value when needed."
+        },
+        "equation": {
+          "type": "string",
+          "description": "Alias for expression."
+        },
+        "from_currency": {
+          "type": "string",
+          "description": "Currency to convert from (for currency math)."
         },
         "to_currency": {
-          "type": "string"
+          "type": "string",
+          "description": "Currency to convert to (for currency math)."
         }
       },
       "required": [
@@ -255,65 +311,79 @@
     }
   },
   "calculate_zakat": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Calculate zakat owed on a given amount and asset type.",
     "parameters": {
       "type": "object",
       "properties": {
         "amount": {
           "type": [
-            "integer",
+            "number",
             "string"
-          ]
+          ],
+          "description": "Amount or value of assets."
         },
-        "assets_type": {
-          "type": "string"
+        "type": {
+          "type": "string",
+          "description": "Asset type (e.g., cash, gold, savings)."
         },
         "currency": {
           "type": [
-            "null",
-            "string"
-          ]
-        },
-        "type": {
-          "type": "string"
+            "string",
+            "null"
+          ],
+          "description": "Currency of the amount."
         },
         "weight": {
-          "type": "integer"
+          "type": "integer",
+          "description": "Weight in grams when calculating gold/silver."
+        },
+        "assets_type": {
+          "type": "string",
+          "description": "Alias for type with more detail if provided."
         }
       },
       "required": [
-        "amount"
+        "amount",
+        "type"
       ]
     }
   },
   "check_insurance_coverage": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Check whether a procedure or treatment is covered by a specific insurance plan.",
     "parameters": {
       "type": "object",
       "properties": {
-        "city": {
-          "type": "string"
-        },
-        "doctor_specialty": {
-          "type": "string"
-        },
-        "hospital": {
-          "type": "string"
-        },
-        "insurance_id": {
-          "type": "string"
-        },
         "insurance_number": {
-          "type": "string"
+          "type": "string",
+          "description": "Policy or insurance card number."
         },
         "procedure": {
-          "type": "string"
+          "type": "string",
+          "description": "Procedure/treatment to verify coverage for."
+        },
+        "insurance_id": {
+          "type": "string",
+          "description": "Alternate insurance identifier."
+        },
+        "hospital": {
+          "type": "string",
+          "description": "Hospital or clinic where service is requested."
+        },
+        "city": {
+          "type": "string",
+          "description": "City of the facility."
+        },
+        "doctor_specialty": {
+          "type": "string",
+          "description": "Requested doctor specialty."
         },
         "specialty": {
-          "type": "string"
+          "type": "string",
+          "description": "Alias for doctor_specialty."
         },
         "treatment": {
-          "type": "string"
+          "type": "string",
+          "description": "Named treatment if provided."
         }
       },
       "required": [
@@ -323,27 +393,33 @@
     }
   },
   "check_iqama_status": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Retrieve residency (iqama) status details for a person.",
     "parameters": {
       "type": "object",
       "properties": {
-        "city": {
-          "type": "string"
+        "iqama_number": {
+          "type": "string",
+          "description": "Iqama/residency number."
         },
         "id_number": {
-          "type": "string"
+          "type": "string",
+          "description": "National ID number if different from iqama."
         },
-        "iqama_number": {
-          "type": "string"
+        "city": {
+          "type": "string",
+          "description": "City of residence."
         },
         "name": {
-          "type": "string"
-        },
-        "nationality": {
-          "type": "string"
+          "type": "string",
+          "description": "Full name."
         },
         "person_name": {
-          "type": "string"
+          "type": "string",
+          "description": "Alias for name."
+        },
+        "nationality": {
+          "type": "string",
+          "description": "Nationality of the person."
         }
       },
       "required": [
@@ -352,21 +428,25 @@
     }
   },
   "check_traffic_violations": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Look up outstanding traffic violations or fines for a vehicle or driver.",
     "parameters": {
       "type": "object",
       "properties": {
         "id_number": {
-          "type": "string"
-        },
-        "iqama_number": {
-          "type": "string"
+          "type": "string",
+          "description": "National ID/Iqama used for the inquiry."
         },
         "license_plate": {
-          "type": "string"
+          "type": "string",
+          "description": "Vehicle license plate number."
+        },
+        "iqama_number": {
+          "type": "string",
+          "description": "Iqama number if used instead of national ID."
         },
         "national_id": {
-          "type": "string"
+          "type": "string",
+          "description": "Alias for id_number."
         }
       },
       "required": [
@@ -375,24 +455,29 @@
     }
   },
   "check_visa_status": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Check the status of a visa application or issued visa.",
     "parameters": {
       "type": "object",
       "properties": {
-        "application_number": {
-          "type": "string"
-        },
-        "id_number": {
-          "type": "string"
-        },
-        "nationality": {
-          "type": "string"
+        "visa_number": {
+          "type": "string",
+          "description": "Visa or application reference number."
         },
         "passport_number": {
-          "type": "string"
+          "type": "string",
+          "description": "Passport number used in the application."
         },
-        "visa_number": {
-          "type": "string"
+        "id_number": {
+          "type": "string",
+          "description": "National ID/Iqama when required."
+        },
+        "nationality": {
+          "type": "string",
+          "description": "Applicant nationality."
+        },
+        "application_number": {
+          "type": "string",
+          "description": "Alternate application number if provided."
         }
       },
       "required": [
@@ -401,48 +486,56 @@
     }
   },
   "compare_prices": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Compare prices of a specific product across countries or locations.",
     "parameters": {
       "type": "object",
       "properties": {
-        "city": {
-          "type": "string"
+        "product_name": {
+          "type": "string",
+          "description": "Product to compare (e.g., iPhone 15)."
         },
         "country": {
           "type": [
+            "string",
             "array",
-            "null",
-            "string"
+            "null"
           ],
           "items": {
-            "type": [
-              "string"
-            ]
-          }
+            "type": "string"
+          },
+          "description": "Country or list of countries to compare."
         },
         "country1": {
-          "type": "string"
+          "type": "string",
+          "description": "First country when comparing exactly two."
         },
         "country2": {
-          "type": "string"
+          "type": "string",
+          "description": "Second country when comparing exactly two."
         },
-        "item": {
-          "type": "string"
+        "city": {
+          "type": "string",
+          "description": "City or locality for the comparison."
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": "Store/location detail."
+        },
+        "item": {
+          "type": "string",
+          "description": "Alias for product_name."
         },
         "product_category": {
-          "type": "string"
-        },
-        "product_name": {
-          "type": "string"
+          "type": "string",
+          "description": "Product category (e.g., electronics)."
         },
         "site1": {
-          "type": "string"
+          "type": "string",
+          "description": "First shopping site to compare."
         },
         "site2": {
-          "type": "string"
+          "type": "string",
+          "description": "Second shopping site to compare."
         }
       },
       "required": [
@@ -451,43 +544,54 @@
     }
   },
   "convert_currency": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Convert a monetary amount from one currency to another.",
     "parameters": {
       "type": "object",
       "properties": {
         "amount": {
           "type": [
-            "integer",
-            "null",
-            "string"
-          ]
+            "number",
+            "string",
+            "null"
+          ],
+          "description": "Amount to convert."
         },
         "from_currency": {
-          "type": "string"
+          "type": "string",
+          "description": "Source currency code (e.g., SAR)."
         },
         "to_currency": {
-          "type": "string"
+          "type": "string",
+          "description": "Target currency code (e.g., USD)."
         }
       },
       "required": [
+        "amount",
         "from_currency",
         "to_currency"
       ]
     }
   },
   "currency_conversion": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Alias of convert_currency kept for legacy naming in the dataset.",
     "parameters": {
       "type": "object",
       "properties": {
         "amount": {
-          "type": "integer"
+          "type": [
+            "number",
+            "string",
+            "null"
+          ],
+          "description": "Amount to convert."
         },
         "from_currency": {
-          "type": "string"
+          "type": "string",
+          "description": "Source currency code."
         },
         "to_currency": {
-          "type": "string"
+          "type": "string",
+          "description": "Target currency code."
         }
       },
       "required": [
@@ -498,15 +602,17 @@
     }
   },
   "get_air_quality": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Fetch the air quality index for a city on a given date.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "City to query."
         },
         "date": {
-          "type": "string"
+          "type": "string",
+          "description": "Specific date if not today."
         }
       },
       "required": [
@@ -515,12 +621,13 @@
     }
   },
   "get_birthday": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Retrieve a stored birthday for a named person.",
     "parameters": {
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "Person's name."
         }
       },
       "required": [
@@ -529,12 +636,13 @@
     }
   },
   "get_current_time": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Return the current local time for a specified city or region.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "City or timezone to look up."
         }
       },
       "required": [
@@ -543,36 +651,40 @@
     }
   },
   "get_gold_price": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Retrieve gold prices for a country (and optional city) with a specific karat.",
     "parameters": {
       "type": "object",
       "properties": {
-        "city": {
-          "type": "string"
-        },
         "country": {
-          "type": "string"
+          "type": "string",
+          "description": "Country market to reference."
         },
-        "date": {
-          "type": "string"
+        "city": {
+          "type": "string",
+          "description": "City or region, if prices vary locally."
+        },
+        "location": {
+          "type": "string",
+          "description": "Neighborhood or market location."
         },
         "karat": {
           "type": [
-            "array",
             "integer",
-            "string"
+            "string",
+            "array"
           ],
           "items": {
-            "type": [
-              "integer"
-            ]
-          }
-        },
-        "location": {
-          "type": "string"
+            "type": "integer"
+          },
+          "description": "Gold purity (karat) as number or list."
         },
         "unit": {
-          "type": "string"
+          "type": "string",
+          "description": "Pricing unit (e.g., gram, ounce)."
+        },
+        "date": {
+          "type": "string",
+          "description": "Date for historical pricing."
         }
       },
       "required": [
@@ -581,21 +693,24 @@
     }
   },
   "get_hadith": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Search for hadith text using keywords or topic filters.",
     "parameters": {
       "type": "object",
       "properties": {
         "query": {
-          "type": "string"
+          "type": "string",
+          "description": "Search phrase or keywords."
         },
         "source": {
           "type": [
-            "null",
-            "string"
-          ]
+            "string",
+            "null"
+          ],
+          "description": "Hadith collection/source to limit results."
         },
         "topic": {
-          "type": "string"
+          "type": "string",
+          "description": "Subject or theme to filter by."
         }
       },
       "required": [
@@ -604,18 +719,20 @@
     }
   },
   "get_prayer_times": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Fetch daily prayer times for a city on a specific date.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "City to retrieve prayer times for."
         },
         "date": {
           "type": [
-            "null",
-            "string"
-          ]
+            "string",
+            "null"
+          ],
+          "description": "Date of the schedule; defaults to today if omitted."
         }
       },
       "required": [
@@ -624,12 +741,13 @@
     }
   },
   "get_qibla_direction": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Return the qibla direction for a given city.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "City to compute the qibla direction from."
         }
       },
       "required": [
@@ -638,12 +756,13 @@
     }
   },
   "get_time": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Alias for current time lookup using a city name.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "City or timezone to look up."
         }
       },
       "required": [
@@ -652,27 +771,32 @@
     }
   },
   "get_weather": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Get current conditions or forecast for a city.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
-        },
-        "date": {
-          "type": "string"
-        },
-        "day": {
-          "type": "string"
+          "type": "string",
+          "description": "City to retrieve weather for."
         },
         "days": {
           "type": [
             "integer",
             "string"
-          ]
+          ],
+          "description": "Forecast horizon in days (0 for today)."
+        },
+        "date": {
+          "type": "string",
+          "description": "Specific date to check."
+        },
+        "day": {
+          "type": "string",
+          "description": "Day of week when used instead of date."
         },
         "period": {
-          "type": "string"
+          "type": "string",
+          "description": "Time period such as morning/evening."
         }
       },
       "required": [
@@ -681,12 +805,13 @@
     }
   },
   "order_food": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Place a food order from a specific restaurant.",
     "parameters": {
       "type": "object",
       "properties": {
-        "food_type": {
-          "type": "string"
+        "restaurant": {
+          "type": "string",
+          "description": "Restaurant name."
         },
         "items": {
           "type": [
@@ -694,173 +819,214 @@
             "string"
           ],
           "items": {
-            "type": [
-              "string"
-            ]
-          }
+            "type": "string"
+          },
+          "description": "Items to order."
         },
         "location": {
-          "type": "string"
+          "type": "string",
+          "description": "Delivery location."
         },
-        "restaurant": {
-          "type": "string"
+        "food_type": {
+          "type": "string",
+          "description": "Cuisine or category if specified."
         }
       },
       "required": [
-        "items",
-        "restaurant"
+        "restaurant",
+        "items"
       ]
     }
   },
   "search_flights": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Search available flights between an origin and destination on given dates.",
     "parameters": {
       "type": "object",
       "properties": {
-        "arrival_city": {
-          "type": "string"
-        },
-        "date": {
-          "type": "string"
-        },
-        "date_range": {
-          "type": "string"
-        },
-        "day": {
-          "type": "string"
-        },
-        "departure_city": {
-          "type": "string"
-        },
-        "departure_date": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "departure_day": {
-          "type": "string"
-        },
-        "departure_time": {
-          "type": "string"
+        "origin": {
+          "type": "string",
+          "description": "Departure city or airport."
         },
         "destination": {
-          "type": "string"
+          "type": "string",
+          "description": "Arrival city or airport."
         },
-        "destination_city": {
-          "type": "string"
-        },
-        "from_city": {
-          "type": "string"
-        },
-        "origin": {
-          "type": "string"
+        "date": {
+          "type": "string",
+          "description": "Departure date."
         },
         "passengers": {
           "type": [
             "integer",
             "string"
-          ]
+          ],
+          "description": "Number of passengers."
         },
-        "return_date": {
-          "type": "null"
+        "departure_city": {
+          "type": "string",
+          "description": "Alias for origin when specified separately."
+        },
+        "arrival_city": {
+          "type": "string",
+          "description": "Alias for destination when specified separately."
+        },
+        "departure_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Alternate departure date."
+        },
+        "departure_day": {
+          "type": "string",
+          "description": "Named departure day."
+        },
+        "departure_time": {
+          "type": "string",
+          "description": "Preferred departure time."
+        },
+        "destination_city": {
+          "type": "string",
+          "description": "Alias for destination city."
+        },
+        "date_range": {
+          "type": "string",
+          "description": "Flexible date range."
+        },
+        "from_city": {
+          "type": "string",
+          "description": "Another alias for origin."
         },
         "to_city": {
-          "type": "string"
+          "type": "string",
+          "description": "Another alias for destination."
+        },
+        "day": {
+          "type": "string",
+          "description": "Day of week if provided."
+        },
+        "return_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Return date for round trips."
         }
       },
       "required": [
-        "date",
+        "origin",
         "destination",
-        "origin"
+        "date"
       ]
     }
   },
   "search_hotels": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Find hotels in a city for specified check-in and check-out dates.",
     "parameters": {
       "type": "object",
       "properties": {
-        "check_in": {
-          "type": "string"
+        "city": {
+          "type": "string",
+          "description": "City to search in."
         },
-        "check_in_date": {
-          "type": "string"
+        "check_in": {
+          "type": "string",
+          "description": "Check-in date."
         },
         "check_out": {
-          "type": "string"
-        },
-        "check_out_date": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "date": {
-          "type": "string"
-        },
-        "date_range": {
-          "type": "string"
-        },
-        "dates": {
-          "type": "string"
-        },
-        "destination": {
-          "type": "string"
-        },
-        "duration": {
-          "type": [
-            "integer",
-            "string"
-          ]
+          "type": "string",
+          "description": "Check-out date."
         },
         "guests": {
           "type": [
             "integer",
             "string"
-          ]
+          ],
+          "description": "Number of guests."
         },
-        "location": {
-          "type": "string"
-        },
-        "month": {
-          "type": "string"
+        "duration": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Length of stay if given as duration."
         },
         "nights": {
-          "type": "integer"
+          "type": "integer",
+          "description": "Number of nights."
+        },
+        "check_in_date": {
+          "type": "string",
+          "description": "Alias for check_in."
+        },
+        "check_out_date": {
+          "type": "string",
+          "description": "Alias for check_out."
+        },
+        "date": {
+          "type": "string",
+          "description": "General date field if used."
+        },
+        "date_range": {
+          "type": "string",
+          "description": "Flexible date range."
+        },
+        "dates": {
+          "type": "string",
+          "description": "Combined date string."
+        },
+        "destination": {
+          "type": "string",
+          "description": "Destination city alias."
+        },
+        "location": {
+          "type": "string",
+          "description": "Specific area or neighborhood."
+        },
+        "month": {
+          "type": "string",
+          "description": "Month of travel if stated."
         },
         "start_date": {
-          "type": "string"
+          "type": "string",
+          "description": "Alternate start date field."
         }
       },
       "required": [
+        "city",
         "check_in",
-        "city"
+        "check_out"
       ]
     }
   },
   "search_medications": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Find availability or options for a medication in a location.",
     "parameters": {
       "type": "object",
       "properties": {
+        "medication_name": {
+          "type": "string",
+          "description": "Name of the medication."
+        },
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "City to search in."
         },
         "condition": {
-          "type": "string"
+          "type": "string",
+          "description": "Condition being treated."
         },
         "location": {
-          "type": "string"
-        },
-        "medication_name": {
-          "type": "string"
+          "type": "string",
+          "description": "Area or pharmacy location."
         },
         "medication_type": {
-          "type": "string"
+          "type": "string",
+          "description": "Type/form of medication."
         },
         "symptom": {
-          "type": "string"
+          "type": "string",
+          "description": "Symptom prompting the search."
         }
       },
       "required": [
@@ -869,18 +1035,20 @@
     }
   },
   "search_quran": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Search Quran text using a query and optional search type.",
     "parameters": {
       "type": "object",
       "properties": {
         "query": {
-          "type": "string"
+          "type": "string",
+          "description": "Search terms or verse reference."
         },
         "search_type": {
           "type": [
-            "null",
-            "string"
-          ]
+            "string",
+            "null"
+          ],
+          "description": "Scope of search (e.g., exact, thematic)."
         }
       },
       "required": [
@@ -889,18 +1057,20 @@
     }
   },
   "search_umrah_packages": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Search available Umrah packages from a specific city for a given party size.",
     "parameters": {
       "type": "object",
       "properties": {
         "city": {
-          "type": "string"
+          "type": "string",
+          "description": "Departure city."
         },
         "num_persons": {
           "type": [
             "integer",
             "string"
-          ]
+          ],
+          "description": "Number of travelers."
         }
       },
       "required": [
@@ -910,30 +1080,37 @@
     }
   },
   "set_reminder": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Create a reminder with a title and scheduled time.",
     "parameters": {
       "type": "object",
       "properties": {
-        "date": {
-          "type": "string"
-        },
         "datetime": {
-          "type": "string"
-        },
-        "day": {
-          "type": "string"
-        },
-        "person": {
-          "type": "string"
-        },
-        "time": {
-          "type": "string"
+          "type": "string",
+          "description": "ISO timestamp or date-time string for the reminder."
         },
         "title": {
-          "type": "string"
+          "type": "string",
+          "description": "Reminder title."
+        },
+        "date": {
+          "type": "string",
+          "description": "Date if provided separately."
+        },
+        "day": {
+          "type": "string",
+          "description": "Day of week for the reminder."
+        },
+        "time": {
+          "type": "string",
+          "description": "Time of day if separated from date."
+        },
+        "person": {
+          "type": "string",
+          "description": "Person related to the reminder."
         },
         "topic": {
-          "type": "string"
+          "type": "string",
+          "description": "Subject or context for the reminder."
         }
       },
       "required": [
@@ -943,42 +1120,53 @@
     }
   },
   "track_shipment": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Track a shipment or package using a tracking identifier.",
     "parameters": {
       "type": "object",
       "properties": {
-        "city": {
-          "type": "string"
-        },
-        "date": {
-          "type": "string"
-        },
-        "destination": {
-          "type": "string"
-        },
-        "destination_city": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
-        },
-        "order_id": {
-          "type": "string"
-        },
-        "origin": {
-          "type": "string"
+        "tracking_number": {
+          "type": "string",
+          "description": "Primary tracking number."
         },
         "shipment_number": {
-          "type": "string"
+          "type": "string",
+          "description": "Alternate shipment number."
         },
-        "shipment_source": {
-          "type": "string"
+        "order_id": {
+          "type": "string",
+          "description": "Order identifier if tracking via merchant."
+        },
+        "destination": {
+          "type": "string",
+          "description": "Destination country or city."
+        },
+        "destination_city": {
+          "type": "string",
+          "description": "Destination city."
+        },
+        "origin": {
+          "type": "string",
+          "description": "Origin country or city."
+        },
+        "city": {
+          "type": "string",
+          "description": "City for localized tracking."
+        },
+        "location": {
+          "type": "string",
+          "description": "Current known location."
         },
         "source": {
-          "type": "string"
+          "type": "string",
+          "description": "Courier or source system."
         },
-        "tracking_number": {
-          "type": "string"
+        "shipment_source": {
+          "type": "string",
+          "description": "Alias for source."
+        },
+        "date": {
+          "type": "string",
+          "description": "Reference date for the query."
         }
       },
       "required": [
@@ -987,101 +1175,130 @@
     }
   },
   "transfer_money": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Transfer money to a recipient's bank account or IBAN.",
     "parameters": {
       "type": "object",
       "properties": {
         "amount": {
           "type": [
-            "integer",
+            "number",
             "string"
-          ]
-        },
-        "bank": {
-          "type": "string"
-        },
-        "bank_name": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
+          ],
+          "description": "Amount to transfer."
         },
         "currency": {
-          "type": "string"
-        },
-        "currency_from": {
-          "type": "string"
-        },
-        "destination": {
-          "type": "string"
-        },
-        "destination_bank": {
-          "type": "string"
-        },
-        "destination_city": {
-          "type": "string"
-        },
-        "from_bank": {
-          "type": "string"
-        },
-        "from_country": {
-          "type": "string"
-        },
-        "iban": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
-        },
-        "recipient": {
-          "type": "string"
-        },
-        "recipient_bank": {
-          "type": "string"
+          "type": "string",
+          "description": "Currency of the transfer."
         },
         "recipient_name": {
-          "type": "string"
+          "type": "string",
+          "description": "Recipient full name."
         },
-        "recipient_relationship": {
-          "type": "string"
+        "iban": {
+          "type": "string",
+          "description": "Recipient IBAN."
         },
-        "source_city": {
-          "type": "string"
+        "from_bank": {
+          "type": "string",
+          "description": "Sending bank."
         },
         "to_bank": {
-          "type": "string"
+          "type": "string",
+          "description": "Receiving bank."
+        },
+        "bank": {
+          "type": "string",
+          "description": "Bank name when not distinguishing from/to."
+        },
+        "bank_name": {
+          "type": "string",
+          "description": "Alias for bank."
+        },
+        "destination_bank": {
+          "type": "string",
+          "description": "Receiving bank when specified separately."
+        },
+        "recipient_bank": {
+          "type": "string",
+          "description": "Alias for destination bank."
+        },
+        "destination": {
+          "type": "string",
+          "description": "Destination country or city."
+        },
+        "destination_city": {
+          "type": "string",
+          "description": "Destination city."
+        },
+        "source_city": {
+          "type": "string",
+          "description": "Origin city of the transfer."
+        },
+        "from_country": {
+          "type": "string",
+          "description": "Origin country."
         },
         "to_country": {
-          "type": "string"
+          "type": "string",
+          "description": "Destination country."
+        },
+        "city": {
+          "type": "string",
+          "description": "City related to the transfer."
+        },
+        "recipient": {
+          "type": "string",
+          "description": "Alias for recipient_name."
+        },
+        "recipient_relationship": {
+          "type": "string",
+          "description": "Relationship to the recipient."
+        },
+        "location": {
+          "type": "string",
+          "description": "Pickup/delivery location if applicable."
+        },
+        "currency_from": {
+          "type": "string",
+          "description": "Alias for source currency when conversion involved."
         }
       },
       "required": [
-        "amount"
+        "amount",
+        "currency",
+        "recipient_name",
+        "iban"
       ]
     }
   },
   "translate_text": {
-    "description": "Auto-generated schema from dataset samples.",
+    "description": "Translate text from a source language to a target language.",
     "parameters": {
       "type": "object",
       "properties": {
-        "source_language": {
-          "type": "string"
-        },
-        "source_text": {
-          "type": "string"
+        "text": {
+          "type": "string",
+          "description": "Text to translate."
         },
         "target_language": {
-          "type": "string"
-        },
-        "text": {
-          "type": "string"
-        },
-        "to": {
-          "type": "string"
+          "type": "string",
+          "description": "Target language code or name."
         },
         "to_language": {
-          "type": "string"
+          "type": "string",
+          "description": "Alias for target_language."
+        },
+        "to": {
+          "type": "string",
+          "description": "Short alias for target language."
+        },
+        "source_language": {
+          "type": "string",
+          "description": "Language of the input text if specified."
+        },
+        "source_text": {
+          "type": "string",
+          "description": "Explicit source text when provided separately."
         }
       },
       "required": [
